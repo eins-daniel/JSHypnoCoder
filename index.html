@@ -1,0 +1,58 @@
+<!DOCTYPE html><!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues. -->
+<head>
+    <link rel="stylesheet" type="text/css" href="./assets/global.css">
+    <link rel="stylesheet" type="text/css" href="./assets/index.css">
+</head>
+<div class="header">
+    <button onclick="previous()" style="float:left;" class="lesson-button"><-</button>
+    <div id="headerText"></div>
+    <!--<audio controls>
+        <source src="./assets/binaurals.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio> -->
+    <button onclick="next()" style="float:right;" class="lesson-button">-></button>
+</div>
+<noscript style="color: white; font-size: 40px; text-align: center;">
+    Please disable Noscript or enable JavaScript use this website!
+</noscript>
+<div class="center-content">
+    <iframe id="lessonFrame"></iframe>
+</div>
+<script>
+    let index = 0;
+    const lessons = [{"sortID":0,"title":"Introduction","fileName":"introduction.html"},{"sortID":1,"title":"Variables","fileName":"variables.html"},{"sortID":2,"title":"Hello World","fileName":"helloworld.html"},{"sortID":3,"title":"Factorial","fileName":"factorial.html"}];
+    
+    // getting current lesson from url
+    const urlParams = new URLSearchParams(window.location.search);
+    let site = urlParams.get("lesson");
+    if(site)
+        index = parseInt(site - 1)
+
+    changeTo(index)
+    function previous() {
+        if(index - 1 < 0) {
+            //alert("You are already on the first page!")
+            return
+        }
+        index--;
+        changeTo(index);
+    }
+
+    function next() {
+        if(index + 1 > lessons.length - 1) {
+            //alert("You are already on the last page!")
+            return
+        }
+        index++;
+        changeTo(index);
+    }
+
+    function changeTo(index) {
+        const lesson = lessons[index];
+        document.title = "JSHypnoCoder: " + lesson.title;
+        headerText.innerHTML = "JSHypnoCoder lesson: " + lesson.title;
+        window.history.replaceState(null, null, "?lesson=" + (index + 1));
+        lessonFrame.setAttribute("src", "./lessons/" + lesson.fileName)
+    }
+</script>

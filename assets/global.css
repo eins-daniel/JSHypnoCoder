@@ -1,0 +1,32 @@
+:root {
+    --header-color: white;
+    --color: black;
+    --border-radius: 6px;
+    --border-color: #3f008a;
+    font-size: 18px;
+    font-family: Arial;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    margin: 10px 0px 10px 0px;
+    padding: 5px 10px 5px 10px;
+    font-weight: bolder;
+    font-size: 18px;
+    border: 2px solid var(--border-color);
+    background-color: blueviolet;
+    border-radius: var(--border-radius);
+    color: white;
+}
+
+button:hover {
+    filter: brightness(110%);
+}
+
+button:active {
+    filter: brightness(140%);
+}

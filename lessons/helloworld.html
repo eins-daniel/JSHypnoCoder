@@ -1,0 +1,218 @@
+<!DOCTYPE html><!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <link rel="stylesheet" type="text/css" href="./../assets/global.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/lesson.css">
+</head>
+
+<body>
+
+
+
+<!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <script src="./../assets/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./../assets/ace/ext-language_tools.js"></script>
+    <script src="./../assets/unitTest.js"></script>
+</head>
+<div>
+    <div class="description">
+        Welcome back dear little hypno coder.<br>            Our hypno coder already learned how to write variables but whats the point of giving our hypno coder text without it .<br>            You probably already have noticed the console on the bottom or right side of your code editor.<br>            With <glow>console.log()</glow> you can output your variables to it.<br>            Here an example:<br>            <div class='inline-code'>console.log("Drone obeys!");</div><br>            Or using a variable:<br>            <div class='inline-code'>let drone = "Drone obeys!";<br>console.log(drone);</div><br>            Which will print "<glow>Drone obeys</glow>" in console.<br><br>            Now it's task is to print "<glow>It is a good drone</glow>" into the console.
+    </div>
+    <script>
+        {
+            const folderName = "";
+            if(!codeblockCounter)
+                var codeblockCounter = 0;
+            for (let code of document.getElementsByClassName("inline-code")) {
+                if(code.classList.contains("converted"))
+                    continue;
+                code.classList.add("converted");
+                const innerCode = code.innerHTML;
+                code.setAttribute("id", "code_block_" + codeblockCounter);
+                let editor = ace.edit(code.getAttribute("id"));
+                editor.setOptions({
+                    maxLines: 10,
+                    autoScrollEditorIntoView: true,
+                    highlightActiveLine: false,
+                    printMargin: false,
+                    //showLineNumbers: false,
+                    useWorker: false,
+                    readOnly: true,
+                    "showPrintMargin": false,
+                    "mode": "ace/mode/javascript",
+                    "theme": "ace/theme/one_dark",
+                    // TODO: "fontFamily": 
+                    "fontSize": 18,
+                    "selectionStyle": "line",
+                });
+                editor.resize();
+                console.log(innerCode)
+                editor.setValue(innerCode.replaceAll("<br>", "\n"), -1);
+                codeblockCounter++;
+            }
+
+            for(let element of document.getElementsByTagName("img")) {
+                if (element.hasAttribute("folder")) {
+                    const folderFileName = element.getAttribute("folder");
+                    element.setAttribute("src", `./../assets/imgs/lessons/${folderName}/${folderFileName}`);
+                    element.removeAttribute("folder");
+                }
+
+                if (element.hasAttribute("global")) {
+                    const globalFileName = element.getAttribute("global");
+                    element.setAttribute("src", `./../assets/imgs/${globalFileName}`);
+                    element.removeAttribute("global");
+                }
+            }
+        }
+    </script>
+</div>
+
+<!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <script src="./../assets/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./../assets/ace/ext-language_tools.js"></script>
+    <script src="./../assets/unitTest.js"></script>
+</head>
+<div>
+    <button onclick="runCodeClick2()">Run</button>
+    <button onclick="resetClick2()">Reset</button>
+    <div class="editor-border">
+        <div id="editor2"></div>
+        <div class="output-border">
+            <div class="output-title">Console:</div>
+            <div id="consoleLog2" class="output-log"></div>
+            <div class="output-seperator"></div>
+            <div class="output-title">Tests:</div>
+            <div id="testLog2" class="output-log"></div>
+        </div>
+    </div>
+    <script>
+        // using brackets to make namespace not interfer
+        {
+            const preCode = "";
+            const title = "Hello World";
+            const index = 2;
+            const tests = [(code) => document.unitTest.functionCallTimes(code, "console.log", 1), (code) => document.unitTest.functionHasArgumentTypes(code, "console.log", ["string"]), (code) => document.unitTest.functionHasArgumentValues(code, "console.log", ["It is a good drone"])];
+            const consoleLog = consoleLog2;
+            const testLog = testLog2;
+
+            // forwarding the console to the consoleLog div
+            let logDisabled = false;
+            let localLogActive = false;
+            const oldLog = window.console.log;
+            window.console.log = function (str) {
+                if (logDisabled)
+                    return;
+                if(localLogActive) {
+                    const element = document.createElement("div");
+                    element.innerHTML = ("" + str).replace("\n", "<br>");
+                    consoleLog.appendChild(element);
+                }
+                oldLog(str);
+            }
+
+            let editor = ace.edit("editor" + index);
+            editor.setOptions({
+                "maxLines": Infinity,
+                "showPrintMargin": false,
+                "minLines": 5,
+                "mode": "ace/mode/javascript",
+                "theme": "ace/theme/one_dark",
+                "useSoftTabs": false,
+                "copyWithEmptySelection": true,
+                "enableLiveAutocompletion": true,
+                "customScrollbar": true,
+                // TODO: "fontFamily": 
+                "fontSize": 18,
+                "selectionStyle": "line",
+                "enableBasicAutocompletion": true,
+                "enableLiveAutocompletion": true,
+                "foldStyle": "manual",
+                "enableSnippets": true,
+            });
+
+            // executes the code from ace editor and runs all tests.
+            function runCodeClick2() {
+                consoleLog.innerHTML = "";
+                testLog.innerHTML = "";
+                // delaying the execution to show that the code is getting reevaluated
+                //setTimeout(() => {
+                    const code = editor.getValue();
+                    localLogActive = true; // enabling the log into div console for eval
+                    let hadError = false;
+                    try {
+                        eval(code);
+                    } catch(err) {
+                        console.log(`<error>Error at line: ${err.lineNumber} column: ${err.columnNumber}\n${err}</error>`);
+                        hadError = true;
+                    }
+                    localLogActive = false;
+                    logDisabled = true;
+                    let failedTest = false;
+                    for (let test of tests) {
+                        const result = test(code);
+                        addTestToLog(result)
+                        
+                        // printing error in console when the unit test had an error which isn't caused by the users code and the previous tests didn't fail.
+                        if (result.err && !hadError && !failedTest) {
+                            logDisabled = false;
+                            console.log(result.err);
+                            logDisabled = true;
+                            hadTestError = true;
+                        }
+                    }
+                    if(tests.length == 0) {
+                        addTestToLog({passed: true, text: "This lesson has no tests!"})
+                    }
+                    if(!failedTest)
+                        allTestsPassed();
+                    logDisabled = false;
+                //}, 200);
+            }
+
+            function addTestToLog(result) {
+                const element = document.createElement("div");
+                element.innerHTML = result.text;
+                if (result.passed) {
+                    element.classList.add("passed-test");
+                } else {
+                    failedTest = true;
+                    element.classList.add("failed-test");
+                }
+                testLog.appendChild(element);
+            }
+
+            function allTestsPassed() {
+                const element = document.createElement("div");
+                element.innerHTML = "All tests have been passed successfully!";
+                element.classList.add("passed-test")
+            }
+
+            function resetClick2() {
+                consoleLog.innerHTML = "";
+                testLog.innerHTML = "";
+                editor.setValue(preCode);
+                editor.selection.clearSelection();
+            }
+
+            // Saving the code from editor into localStorage with title of the page + the index of the component
+            if (localStorage.getItem(title + index))
+                editor.setValue(localStorage.getItem(title + index));
+            else
+                editor.setValue(preCode);
+            editor.selection.clearSelection();
+
+            window.onbeforeunload = (event) => {
+                localStorage.setItem(title + index, editor.getValue());
+            };
+        }
+    </script>
+</div>
+</body>

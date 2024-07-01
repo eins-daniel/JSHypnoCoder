@@ -1,0 +1,86 @@
+body {
+    padding: 20px 40px 20px 40px;
+}
+
+.editor-border {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.ace_editor,
+.output-border {
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    flex-grow: 1;
+    min-width: 600px;
+    max-width: 800px;
+    margin: 10px;
+}
+
+.output-border {
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: "Consolas";
+}
+
+.output-log {
+    padding-top: 10px;
+    overflow: auto;
+    min-height: 22px;
+    max-height: 320px;
+}
+
+.output-seperator {
+    border-top: 2px solid var(--border-color);
+    margin: 10px -10px 10px -10px;
+}
+
+.description {
+    color: white;
+    margin: 10px 0px 10px 0px;
+}
+
+.inline-code {
+    font-weight: bolder;
+    outline: 2px solid var(--border-color);
+    margin: 10px 0px 10px 0px;
+    border-radius: var(--border-radius);
+}
+
+.passed-test,
+.failed-test {
+    border-radius: var(--border-radius);
+    padding: 2px;
+    padding-left: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+.passed-test {
+    border: 2px solid var(--border-color);
+    background-color: rgba(0, 255, 0, 0.15);
+}
+
+.failed-test {
+    border: 2px solid var(--border-color);
+    background-color: rgba(255, 0, 0, 0.15);
+}
+
+glow {
+    color: rgb(213, 98, 255);
+}
+
+error {
+    color: rgb(255, 100, 100);
+}
+
+a {
+    color: rgb(255, 0, 215)
+}
+
+li {
+    margin-left: 20px;
+}

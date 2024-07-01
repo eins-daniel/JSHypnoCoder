@@ -1,0 +1,280 @@
+<!DOCTYPE html><!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <link rel="stylesheet" type="text/css" href="./../assets/global.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/lesson.css">
+</head>
+
+<body>
+
+
+
+<!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <script src="./../assets/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./../assets/ace/ext-language_tools.js"></script>
+    <script src="./../assets/unitTest.js"></script>
+</head>
+<div>
+    <div class="description">
+        <br>            This lesson is for already experienced JavaScript drones as there are missing a lot of informations from the last lesson to this one.<br>            As this project is still in development this is also the last lesson and was made to test everything.<br><br>            This lesson is about factorial numbers and your task is it to write a function to calculate the factorial by a given number.<br>            <a href="https://en.wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorial</a><br>            Here is an example <glow>1*2*3*4*5=120</glow> where the factorial number of <glow>5!</glow> is <glow>120</glow>.<br>            You can see that the factorial number of 5 is bascially counting down from 5 while multiplying with it's past values.<br>            <br>            Now its your turn to write a function <glow>factorial</glow> which accepts a number <glow>unitl</glow> to calculate the factorial of.
+    </div>
+    <script>
+        {
+            const folderName = "";
+            if(!codeblockCounter)
+                var codeblockCounter = 0;
+            for (let code of document.getElementsByClassName("inline-code")) {
+                if(code.classList.contains("converted"))
+                    continue;
+                code.classList.add("converted");
+                const innerCode = code.innerHTML;
+                code.setAttribute("id", "code_block_" + codeblockCounter);
+                let editor = ace.edit(code.getAttribute("id"));
+                editor.setOptions({
+                    maxLines: 10,
+                    autoScrollEditorIntoView: true,
+                    highlightActiveLine: false,
+                    printMargin: false,
+                    //showLineNumbers: false,
+                    useWorker: false,
+                    readOnly: true,
+                    "showPrintMargin": false,
+                    "mode": "ace/mode/javascript",
+                    "theme": "ace/theme/one_dark",
+                    // TODO: "fontFamily": 
+                    "fontSize": 18,
+                    "selectionStyle": "line",
+                });
+                editor.resize();
+                console.log(innerCode)
+                editor.setValue(innerCode.replaceAll("<br>", "\n"), -1);
+                codeblockCounter++;
+            }
+
+            for(let element of document.getElementsByTagName("img")) {
+                if (element.hasAttribute("folder")) {
+                    const folderFileName = element.getAttribute("folder");
+                    element.setAttribute("src", `./../assets/imgs/lessons/${folderName}/${folderFileName}`);
+                    element.removeAttribute("folder");
+                }
+
+                if (element.hasAttribute("global")) {
+                    const globalFileName = element.getAttribute("global");
+                    element.setAttribute("src", `./../assets/imgs/${globalFileName}`);
+                    element.removeAttribute("global");
+                }
+            }
+        }
+    </script>
+</div>
+
+<!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <script src="./../assets/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./../assets/ace/ext-language_tools.js"></script>
+    <script src="./../assets/unitTest.js"></script>
+</head>
+<div>
+    <button onclick="runCodeClick2()">Run</button>
+    <button onclick="resetClick2()">Reset</button>
+    <div class="editor-border">
+        <div id="editor2"></div>
+        <div class="output-border">
+            <div class="output-title">Console:</div>
+            <div id="consoleLog2" class="output-log"></div>
+            <div class="output-seperator"></div>
+            <div class="output-title">Tests:</div>
+            <div id="testLog2" class="output-log"></div>
+        </div>
+    </div>
+    <script>
+        // using brackets to make namespace not interfer
+        {
+            const preCode = "";
+            const title = "Factorial";
+            const index = 2;
+            const tests = [(code) => document.unitTest.functionExists(code, "factorial"), (code) => document.unitTest.functionHasParameterCount(code, "factorial", 1), (code) => document.unitTest.functionHasReturnType(code, "factorial", "number", [1]), (code) => document.unitTest.functionHasReturnValue(code, "factorial", 2, [2]), (code) => document.unitTest.functionHasReturnValue(code, "factorial", 6, [3]), (code) => document.unitTest.functionHasReturnValue(code, "factorial", 24, [4]), (code) => document.unitTest.functionHasReturnValue(code, "factorial", 120, [5]), (code) => document.unitTest.functionHasReturnValue(code, "factorial", 3628800, [10])];
+            const consoleLog = consoleLog2;
+            const testLog = testLog2;
+
+            // forwarding the console to the consoleLog div
+            let logDisabled = false;
+            let localLogActive = false;
+            const oldLog = window.console.log;
+            window.console.log = function (str) {
+                if (logDisabled)
+                    return;
+                if(localLogActive) {
+                    const element = document.createElement("div");
+                    element.innerHTML = ("" + str).replace("\n", "<br>");
+                    consoleLog.appendChild(element);
+                }
+                oldLog(str);
+            }
+
+            let editor = ace.edit("editor" + index);
+            editor.setOptions({
+                "maxLines": Infinity,
+                "showPrintMargin": false,
+                "minLines": 5,
+                "mode": "ace/mode/javascript",
+                "theme": "ace/theme/one_dark",
+                "useSoftTabs": false,
+                "copyWithEmptySelection": true,
+                "enableLiveAutocompletion": true,
+                "customScrollbar": true,
+                // TODO: "fontFamily": 
+                "fontSize": 18,
+                "selectionStyle": "line",
+                "enableBasicAutocompletion": true,
+                "enableLiveAutocompletion": true,
+                "foldStyle": "manual",
+                "enableSnippets": true,
+            });
+
+            // executes the code from ace editor and runs all tests.
+            function runCodeClick2() {
+                consoleLog.innerHTML = "";
+                testLog.innerHTML = "";
+                // delaying the execution to show that the code is getting reevaluated
+                //setTimeout(() => {
+                    const code = editor.getValue();
+                    localLogActive = true; // enabling the log into div console for eval
+                    let hadError = false;
+                    try {
+                        eval(code);
+                    } catch(err) {
+                        console.log(`<error>Error at line: ${err.lineNumber} column: ${err.columnNumber}\n${err}</error>`);
+                        hadError = true;
+                    }
+                    localLogActive = false;
+                    logDisabled = true;
+                    let failedTest = false;
+                    for (let test of tests) {
+                        const result = test(code);
+                        addTestToLog(result)
+                        
+                        // printing error in console when the unit test had an error which isn't caused by the users code and the previous tests didn't fail.
+                        if (result.err && !hadError && !failedTest) {
+                            logDisabled = false;
+                            console.log(result.err);
+                            logDisabled = true;
+                            hadTestError = true;
+                        }
+                    }
+                    if(tests.length == 0) {
+                        addTestToLog({passed: true, text: "This lesson has no tests!"})
+                    }
+                    if(!failedTest)
+                        allTestsPassed();
+                    logDisabled = false;
+                //}, 200);
+            }
+
+            function addTestToLog(result) {
+                const element = document.createElement("div");
+                element.innerHTML = result.text;
+                if (result.passed) {
+                    element.classList.add("passed-test");
+                } else {
+                    failedTest = true;
+                    element.classList.add("failed-test");
+                }
+                testLog.appendChild(element);
+            }
+
+            function allTestsPassed() {
+                const element = document.createElement("div");
+                element.innerHTML = "All tests have been passed successfully!";
+                element.classList.add("passed-test")
+            }
+
+            function resetClick2() {
+                consoleLog.innerHTML = "";
+                testLog.innerHTML = "";
+                editor.setValue(preCode);
+                editor.selection.clearSelection();
+            }
+
+            // Saving the code from editor into localStorage with title of the page + the index of the component
+            if (localStorage.getItem(title + index))
+                editor.setValue(localStorage.getItem(title + index));
+            else
+                editor.setValue(preCode);
+            editor.selection.clearSelection();
+
+            window.onbeforeunload = (event) => {
+                localStorage.setItem(title + index, editor.getValue());
+            };
+        }
+    </script>
+</div>
+
+<!-- All rights for this project are reserved.
+When you want to use this project please contact me on discord daniel_298 or over Github issues.
+I am not averse to passing the project on. -->
+<head>
+    <script src="./../assets/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./../assets/ace/ext-language_tools.js"></script>
+    <script src="./../assets/unitTest.js"></script>
+</head>
+<div>
+    <div class="description">
+        As this website is still in development here is the working code:<br><div class='inline-code'>function factorial(until) {<br>    let result = 1;<br>    for(let i = 1; i <= until; i++) {<br>        result *= i;<br>    }<br>    return result;<br>}<br>console.log("The factorial is " + factorial(5));</div><br>And you might ask what this has todo with hypnosis?<br>It's not implemented.<br>Check out the <a href="https://www.hexcorp.net/programming-while-hypnotized">Programming While Hypnotized</a> from HexCorp if you want to know.<br>
+    </div>
+    <script>
+        {
+            const folderName = "";
+            if(!codeblockCounter)
+                var codeblockCounter = 0;
+            for (let code of document.getElementsByClassName("inline-code")) {
+                if(code.classList.contains("converted"))
+                    continue;
+                code.classList.add("converted");
+                const innerCode = code.innerHTML;
+                code.setAttribute("id", "code_block_" + codeblockCounter);
+                let editor = ace.edit(code.getAttribute("id"));
+                editor.setOptions({
+                    maxLines: 10,
+                    autoScrollEditorIntoView: true,
+                    highlightActiveLine: false,
+                    printMargin: false,
+                    //showLineNumbers: false,
+                    useWorker: false,
+                    readOnly: true,
+                    "showPrintMargin": false,
+                    "mode": "ace/mode/javascript",
+                    "theme": "ace/theme/one_dark",
+                    // TODO: "fontFamily": 
+                    "fontSize": 18,
+                    "selectionStyle": "line",
+                });
+                editor.resize();
+                console.log(innerCode)
+                editor.setValue(innerCode.replaceAll("<br>", "\n"), -1);
+                codeblockCounter++;
+            }
+
+            for(let element of document.getElementsByTagName("img")) {
+                if (element.hasAttribute("folder")) {
+                    const folderFileName = element.getAttribute("folder");
+                    element.setAttribute("src", `./../assets/imgs/lessons/${folderName}/${folderFileName}`);
+                    element.removeAttribute("folder");
+                }
+
+                if (element.hasAttribute("global")) {
+                    const globalFileName = element.getAttribute("global");
+                    element.setAttribute("src", `./../assets/imgs/${globalFileName}`);
+                    element.removeAttribute("global");
+                }
+            }
+        }
+    </script>
+</div>
+</body>
